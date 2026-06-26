@@ -132,10 +132,13 @@ graph LR
 
 ## 🛡️ Security & Privacy Guarantees
 
-We take your code's privacy seriously:
+We take your code's privacy seriously. **Prompt Architect Analyst** is built with an uncompromising zero-trust architecture:
+
+- **Isolated Credential Storage**: Your API Key is NEVER stored inside the project folder. When configured via the CLI, it is saved strictly to `~/.config/prompt-architect-analyst/config.json`, making it physically impossible to accidentally leak via `git push`.
+- **System-Level Protection (`0o600`)**: The configuration file containing your API Key is strictly enforced with `0o600` permissions. It is only readable and writable by your specific user account. No other local users or third-party processes can access it.
+- **Ephemeral Keys (Recommended)**: For maximum paranoia, skip the configuration file entirely. You can pass your key via environment variables (`export OPENAI_API_KEY="sk-..."`). The application will read it securely from RAM and destroy it when the process exits.
 - **Zero Writes**: The source database is opened using SQLite `?mode=ro`. It is physically impossible for this tool to alter your OpenCode history.
-- **Log Scrubbing**: API keys, paths, and tracebacks are scrubbed automatically via `SensitiveDataFilter`.
-- **Permission Guard**: The generated HTML report is written with strict `0o600` permissions (only readable by your user).
+- **Active Log Scrubbing**: API keys, paths, and tracebacks are actively scrubbed via a `SensitiveDataFilter`. If the underlying library ever attempts to log your key, it is intercepted and replaced with `[REDACTED]` before hitting the console.
 - **De-identified AI payloads**: If you opt-in to LLM enrichment, the payload sent to the model contains no actual file contents, no file paths with your username, and no credentials.
 
 ---
