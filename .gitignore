@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Credentials & secrets — NEVER commit these
+api_keys.txt
+*_secret*
+*_key.txt
+.secrets
+
+# prompt-architect-analyst sensitive outputs
+# These files contain real user prompts — keep them local only
+insight-evidence*.json
+ai_evidence*.json
+ai_analysis*.json
+*.evidence.json
+*.analysis.json
+
+# OpenCode databases — never commit real user data
+*.db
+*.db-shm
+*.db-wal
+
+# JSONL transcripts — may contain user prompts
+*.jsonl
+
+# Reports (may contain user data)
+ai_report*.html
+ai_fluency_report*.html
+
+# Test artifacts
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.ruff_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Distribution
+dist/
+reports/
+report-*.html
+report_*.html
+reporte*.html

@@ -1,0 +1,18 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 2%   # allow 2% drop before marking as failed
+    patch:
+      default:
+        target: 70%     # new code introduced in a PR must have 70% coverage
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: true   # only comment if coverage changes
+
+ignore:
+  - "tests/*"
+  - "insight.py"  # entry-point stub

@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prompt-architect-analyst"
+version = "0.1.0"
+description = "AI-fluency analyzer for OpenCode sessions"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "jinja2>=3.1",        # HTML report rendering
+    "openai>=1.30",       # OpenAI-compatible LLM client (NVIDIA NIM, OpenAI, etc.)
+    "typer>=0.12",        # CLI framework
+]
+
+[project.optional-dependencies]
+anthropicai = ["anthropic>=0.30.0"]
+openai = ["openai>=1.30.0"]
+all = ["anthropic>=0.30.0", "openai>=1.30.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "bandit>=1.7",
+]
+
+[project.scripts]
+prompt-architect-analyst = "src.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-v", "--tb=short"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "S",   # flake8-bandit (security)
+    "B",   # flake8-bugbear
+    "I",   # isort
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+]
+ignore = [
+    "S101",  # assert in tests is fine
+    "S603",  # subprocess with shell=False is fine
+    "E501",  # line too long (common with prompts and texts)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "N"]
